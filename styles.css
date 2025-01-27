@@ -44,6 +44,7 @@ h1 {
 }
 
 .features {
+    position: relative;
     padding: 3rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -55,23 +56,39 @@ h1 {
 }
 
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem;
+    padding: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 
 .feature-card {
+    flex: 0 0 220px;
+    min-width: 220px;
     background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     text-align: center;
 }
 
 .feature-card img {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+    font-size: 0.9rem;
+    color: #64748b;
 }
 
 .registration {
@@ -188,12 +205,14 @@ footer {
     }
 
     .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
+        margin: 0 -1rem;
+        padding: 0 1rem;
     }
 
     .feature-card {
-        padding: 1.5rem;
+        flex: 0 0 200px;
+        min-width: 200px;
     }
 
     .registration h2 {
@@ -353,4 +372,20 @@ footer {
     .iti__flag {
         background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags@2x.png");
     }
+}
+
+/* Mantener los estilos para ocultar la barra de scroll */
+.features-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.features-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Eliminar estos estilos ya que no se necesitan */
+.carousel-controls,
+.carousel-control {
+    display: none;
 } 

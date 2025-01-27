@@ -38,7 +38,7 @@
     <main>
         <section class="features">
             <h2>Lo que aprenderás</h2>
-            <div class="features-grid">
+            <div class="features-grid" id="featuresCarousel">
                 <div class="feature-card">
                     <img src="https://cdn-icons-png.flaticon.com/512/8832/8832108.png" alt="Webhooks">
                     <h3>Webhooks</h3>
@@ -58,6 +58,11 @@
                     <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
                     <h3>WhatsApp</h3>
                     <p>Conecta con WhatsApp para gestionar tus datos</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4616/4616809.png" alt="AI">
+                    <h3>Inteligencia Artificial</h3>
+                    <p>Aprende a integrar agentes de AI para hacer tus flujos más inteligentes</p>
                 </div>
             </div>
         </section>
@@ -129,6 +134,24 @@
             console.error('Error:', error);
         }
     }
+
+    // Carrusel automático
+    const carousel = document.getElementById('featuresCarousel');
+    let position = 0;
+    const totalWidth = carousel.scrollWidth - carousel.clientWidth;
+    
+    function scrollCarousel() {
+        position = (position + 1) % totalWidth;
+        carousel.scrollLeft = position;
+        
+        if (position >= totalWidth - 1) {
+            position = 0;
+            carousel.scrollLeft = 0;
+        }
+    }
+
+    // Mover el carrusel cada 30ms
+    setInterval(scrollCarousel, 30);
     </script>
 </body>
 </html> 
