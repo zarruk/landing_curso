@@ -388,4 +388,26 @@ footer {
 .carousel-controls,
 .carousel-control {
     display: none;
+}
+
+.event-details {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    text-align: center;
+}
+
+.detail-item {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.detail-item .icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.detail-item p {
+    display: inline-block;
+    font-weight: 500;
 } 
