@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
     <header class="hero">
@@ -63,10 +65,12 @@
         <section class="registration">
             <h2>¡Inscríbete ahora!</h2>
             <div class="registration-container">
-                <form class="registration-form" action="https://workflows.ops.sandbox.cuentamono.com/webhook-test/5b0def55-c58f-4a2d-a170-c9007e64e6d6" method="POST" onsubmit="handleSubmit(event)">
+                <form class="registration-form" action="https://workflows.ops.sandbox.cuentamono.com/webhook/5b0def55-c58f-4a2d-a170-c9007e64e6d6" method="POST" onsubmit="handleSubmit(event)">
                     <input type="text" name="nombre" placeholder="Nombre completo" required>
                     <input type="email" name="email" placeholder="Correo electrónico" required>
-                    <input type="tel" name="telefono" placeholder="Teléfono" required>
+                    <div class="phone-input">
+                        <input type="tel" name="telefono" id="phone" placeholder="Teléfono" required>
+                    </div>
                     <button type="submit">Enviar registro</button>
                     <div id="thankYouMessage" class="thank-you-message" style="display: none;">
                         ¡Gracias por registrarte! Te enviaremos las instrucciones por WhatsApp.
@@ -92,10 +96,22 @@
         </section>
     </main>
     <script>
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "co",
+        preferredCountries: ["co", "mx", "es", "us"],
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
     async function handleSubmit(event) {
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
+
+        // Obtener el número completo con código de país
+        const phoneNumber = iti.getNumber();
+        formData.set('telefono', phoneNumber);
 
         try {
             await fetch(form.action, {

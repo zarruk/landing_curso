@@ -319,4 +319,38 @@ footer {
     height: 100%;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.phone-input {
+    position: relative;
+    width: 100%;
+}
+
+.iti {
+    width: 100%;
+    display: block;
+}
+
+.iti__flag-container {
+    z-index: 2;
+}
+
+/* Hacer que el input dentro del contenedor tenga el mismo estilo que los demás */
+.iti input {
+    width: 100%;
+    padding: 0.75rem;
+    padding-left: 52px; /* Espacio para la bandera y código */
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.iti__flag {
+    background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {
+        background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/img/flags@2x.png");
+    }
 } 
