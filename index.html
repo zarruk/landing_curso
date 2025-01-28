@@ -225,8 +225,15 @@
             // Actualizar lista de sesiones
             const sessionItem = document.createElement('div');
             sessionItem.className = 'session-item';
+            
+            // Determinar el día de la semana
+            let dayOfWeek;
+            if (date === '3 de febrero') dayOfWeek = 'Lunes';
+            else if (date === '4 de febrero') dayOfWeek = 'Martes';
+            else if (date === '6 de febrero') dayOfWeek = 'Jueves';
+            
             sessionItem.innerHTML = `
-                <span>${date === '3 de febrero' ? 'Lunes' : 'Martes'} ${date} - 6:00 PM</span>
+                <span>${dayOfWeek} ${date} - 6:00 PM</span>
                 <span class="${spots > 0 ? 'session-available' : 'session-full'}">
                     (${spots > 0 ? `${spots} cupos disponibles` : 'Cupos agotados'})
                 </span>
@@ -237,7 +244,7 @@
             if (spots > 0) {
                 const option = document.createElement('option');
                 option.value = date;
-                option.textContent = `${date === '3 de febrero' ? 'Lunes' : 'Martes'} ${date} - 6:00 PM`;
+                option.textContent = `${dayOfWeek} ${date} - 6:00 PM`;
                 sessionSelect.appendChild(option);
             }
         });
