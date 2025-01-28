@@ -81,7 +81,7 @@
                     </div>
                     <div class="session-item">
                         <span>Martes 4 de febrero - 6:00 PM</span>
-                        <span class="session-available">(20 cupos disponibles)</span>
+                        <span class="session-full">(Cupos agotados)</span>
                     </div>
                 </div>
             </div>
@@ -93,12 +93,11 @@
                         <input type="tel" name="telefono" id="phone" placeholder="Teléfono" required>
                     </div>
                     <select name="fecha_sesion" id="sessionSelect" required onchange="handleSessionChange(this)">
-                        <option value="">Selecciona una fecha</option>
-                        <option value="3 de febrero">Lunes 3 de febrero - 6:00 PM</option>
-                        <option value="4 de febrero">Martes 4 de febrero - 6:00 PM</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="lista de espera">Lista de espera - Próxima fecha</option>
                     </select>
                     <div id="sessionFullMessage" class="error-message" style="display: none;">
-                        Lo sentimos, la sesión del 3 de febrero está llena. Por favor selecciona la sesión del 4 de febrero.
+                        Lo sentimos, ambas sesiones están llenas. Te agregaremos a la lista de espera para la próxima fecha.
                     </div>
                     <button type="submit">Enviar registro</button>
                     <div id="thankYouMessage" class="thank-you-message" style="display: none;">
@@ -137,7 +136,7 @@
         const errorMessage = document.getElementById('sessionFullMessage');
         const submitButton = select.form.querySelector('button[type="submit"]');
         
-        if (select.value === '3 de febrero') {
+        if (select.value === '3 de febrero' || select.value === '4 de febrero') {
             errorMessage.style.display = 'block';
             submitButton.disabled = true;
             submitButton.style.opacity = '0.5';
