@@ -1,10 +1,168 @@
-<div class="event-details">
-    <div class="detail-item">
-        <span class="icon">📅</span>
-        <p>Martes 4 de febrero a las 6:00 PM</p>
-    </div>
-    <div class="detail-item">
-        <span class="icon">👥</span>
-        <p>¡Solo 20 cupos disponibles!</p>
-    </div>
-</div> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Automatización Financiera</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Monta una automatización para llevar el seguimiento de tus gastos con tarjeta</h1>
+            <p class="subtitle">Aprende a crear tu propio sistema de tracking de gastos, o cualquier automatización, usando n8n, OpenAI, extrayendo datos de PDFs y WhatsApp</p>
+        </div>
+    </header>
+
+    <section class="video-section">
+        <div class="container">
+            <div class="video-wrapper">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/eFgPyOA2tfs" 
+                    title="Video explicativo del taller" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="features">
+            <h2>Lo que aprenderás</h2>
+            <div class="features-grid" id="featuresCarousel">
+                <div class="feature-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/8832/8832108.png" alt="Webhooks">
+                    <h3>Webhooks</h3>
+                    <p>Comprende cómo funcionan los webhooks y cómo utilizarlos en automatizaciones</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2885/2885417.png" alt="APIs">
+                    <h3>APIs</h3>
+                    <p>Domina el uso de APIs para conectar diferentes servicios</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1935/1935765.png" alt="Automatización">
+                    <h3>n8n</h3>
+                    <p>Aprende a usar n8n para crear flujos de trabajo automatizados</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
+                    <h3>WhatsApp</h3>
+                    <p>Conecta con WhatsApp para gestionar tus datos</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4616/4616809.png" alt="AI">
+                    <h3>Inteligencia Artificial</h3>
+                    <p>Aprende a integrar agentes de AI para hacer tus flujos más inteligentes</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="registration">
+            <h2>¡Inscríbete ahora!</h2>
+            <div class="event-details">
+                <div class="detail-item">
+                    <span class="icon">📅</span>
+                    <p>Martes 4 de febrero a las 6:00 PM</p>
+                </div>
+                <div class="detail-item">
+                    <span class="icon">👥</span>
+                    <p>¡Solo 20 cupos disponibles!</p>
+                </div>
+            </div>
+            <div class="registration-container">
+                <form class="registration-form" action="https://workflows.ops.sandbox.cuentamono.com/webhook/5b0def55-c58f-4a2d-a170-c9007e64e6d6" method="POST" onsubmit="handleSubmit(event)">
+                    <input type="text" name="nombre" placeholder="Nombre completo" required>
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                    <div class="phone-input">
+                        <input type="tel" name="telefono" id="phone" placeholder="Teléfono" required>
+                    </div>
+                    <input type="hidden" name="fecha_sesion" value="4 de febrero">
+                    <button type="submit">Enviar registro</button>
+                    <div id="thankYouMessage" class="thank-you-message" style="display: none;">
+                        ¡Gracias por registrarte! Te enviaremos las instrucciones por WhatsApp.
+                    </div>
+                </form>
+                <div class="payment-info">
+                    <h3>Realiza tu pago</h3>
+                    <div class="price-options">
+                        <p>Valor del taller:</p>
+                        <p class="price">COP $79.000 / USD $18.89</p>
+                    </div>
+                    <div class="payment-methods">
+                        <a href="https://clientes.nequi.com.co/recargas" class="payment-button pse-button" target="_blank">
+                            Pagar con PSE
+                        </a>
+                        <a href="https://revolut.me/salomo8yq" class="payment-button card-button" target="_blank">
+                            Pagar con Tarjeta
+                        </a>
+                    </div>
+                    <p class="payment-note">Para pagos PSE, usar el número: 3187033333</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "co",
+        preferredCountries: ["co", "mx", "es", "us"],
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Obtener el número completo con código de país
+        const phoneNumber = iti.getNumber();
+        formData.set('telefono', phoneNumber);
+
+        try {
+            await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+            
+            form.reset();
+            const inputs = form.querySelectorAll('input, button');
+            inputs.forEach(input => input.style.display = 'none');
+            
+            const thankYouMessage = document.getElementById('thankYouMessage');
+            thankYouMessage.style.display = 'block';
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Carrusel automático
+    const carousel = document.getElementById('featuresCarousel');
+    let position = 0;
+    const totalWidth = carousel.scrollWidth - carousel.clientWidth;
+    
+    function scrollCarousel() {
+        position = (position + 1) % totalWidth;
+        carousel.scrollLeft = position;
+        
+        if (position >= totalWidth - 1) {
+            position = 0;
+            carousel.scrollLeft = 0;
+        }
+    }
+
+    // Mover el carrusel cada 30ms
+    setInterval(scrollCarousel, 30);
+    </script>
+</body>
+</html> 
