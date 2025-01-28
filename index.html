@@ -194,6 +194,74 @@
 
     // Mover el carrusel cada 30ms
     setInterval(scrollCarousel, 30);
+
+    // Al inicio del script
+    async function loadAvailableSpots() {
+        try {
+            const SHEET_ID = '15R-TE_3mhfHmvk-tUr1fdZOAQrhm4zFIPooqQA3YLTg';
+            const SHEET_NAME = 'Sheet2';
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+            
+            const response = await fetch(url);
+            const text = await response.text();
+            const data = JSON.parse(text.substr(47).slice(0, -2));
+            
+            // Procesar los datos
+            const sessions = {};
+            data.table.rows.forEach(row => {
+                const date = row.c[0].v;  // Columna A - fecha
+                const spots = row.c[1].v;  // Columna B - cupos
+                sessions[date] = spots;
+            });
+            
+            // Actualizar el UI
+            updateSessionsUI(sessions);
+        } catch (error) {
+            console.error('Error loading spots:', error);
+        }
+    }
+
+    function updateSessionsUI(sessions) {
+        const sessionsList = document.querySelector('.sessions-list');
+        const sessionSelect = document.getElementById('sessionSelect');
+        
+        // Limpiar opciones existentes
+        sessionSelect.innerHTML = '<option value="">Selecciona una opción</option>';
+        sessionsList.innerHTML = '';
+        
+        // Agregar cada sesión
+        Object.entries(sessions).forEach(([date, spots]) => {
+            // Actualizar lista de sesiones
+            const sessionItem = document.createElement('div');
+            sessionItem.className = 'session-item';
+            sessionItem.innerHTML = `
+                <span>${date === '3 de febrero' ? 'Lunes' : 'Martes'} ${date} - 6:00 PM</span>
+                <span class="${spots > 0 ? 'session-available' : 'session-full'}">
+                    (${spots > 0 ? `${spots} cupos disponibles` : 'Cupos agotados'})
+                </span>
+            `;
+            sessionsList.appendChild(sessionItem);
+            
+            // Actualizar selector solo si hay cupos
+            if (spots > 0) {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = `${date === '3 de febrero' ? 'Lunes' : 'Martes'} ${date} - 6:00 PM`;
+                sessionSelect.appendChild(option);
+            }
+        });
+        
+        // Agregar opción de lista de espera si no hay cupos en ninguna sesión
+        if (!Object.values(sessions).some(spots => spots > 0)) {
+            const option = document.createElement('option');
+            option.value = 'lista de espera';
+            option.textContent = 'Lista de espera - Próxima fecha';
+            sessionSelect.appendChild(option);
+        }
+    }
+
+    // Cargar los datos cuando la página se carga
+    document.addEventListener('DOMContentLoaded', loadAvailableSpots);
     </script>
 </body>
 </html> 
