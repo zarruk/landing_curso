@@ -127,10 +127,10 @@
         const errorMessage = document.getElementById('sessionFullMessage');
         const submitButton = select.form.querySelector('button[type="submit"]');
         
-        if (select.value === '3 de febrero' || select.value === '4 de febrero') {
+        if (select.value === 'lista de espera') {
             errorMessage.style.display = 'block';
-            submitButton.disabled = true;
-            submitButton.style.opacity = '0.5';
+            submitButton.disabled = false;
+            submitButton.style.opacity = '1';
         } else {
             errorMessage.style.display = 'none';
             submitButton.disabled = false;
