@@ -86,7 +86,10 @@
                 </div>
             </div>
             <div class="registration-container">
-                <form class="registration-form" action="https://workflows.ops.sandbox.cuentamono.com/webhook/5b0def55-c58f-4a2d-a170-c9007e64e6d6" method="POST" onsubmit="handleSubmit(event)">
+                <form class="registration-form" 
+                    action="https://workflows.ops.sandbox.cuentamono.com/webhook/5b0def55-c58f-4a2d-a170-c9007e64e6d6" 
+                    method="POST" 
+                    onsubmit="handleSubmit(event)">
                     <input type="text" name="nombre" placeholder="Nombre completo" required>
                     <input type="email" name="email" placeholder="Correo electrónico" required>
                     <div class="phone-input">
@@ -107,7 +110,7 @@
                 <div class="payment-info">
                     <div class="price-options">
                         <p>Valor del taller:</p>
-                        <p class="price">COP $79.000 / USD $18.89</p>
+                        <p class="price">COP $99.000 / USD $23.50</p>
                     </div>
                     <p class="payment-note">Te enviaremos las instrucciones de pago por WhatsApp</p>
                 </div>
@@ -249,13 +252,11 @@
             }
         });
         
-        // Agregar opción de lista de espera si no hay cupos en ninguna sesión
-        if (!Object.values(sessions).some(spots => spots > 0)) {
-            const option = document.createElement('option');
-            option.value = 'lista de espera';
-            option.textContent = 'Lista de espera - Próxima fecha';
-            sessionSelect.appendChild(option);
-        }
+        // Siempre agregar opción de lista de espera
+        const option = document.createElement('option');
+        option.value = 'lista de espera';
+        option.textContent = 'Lista de espera - Próxima fecha';
+        sessionSelect.appendChild(option);
     }
 
     // Cargar los datos cuando la página se carga
